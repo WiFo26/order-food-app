@@ -1,3 +1,5 @@
+import { Card } from '../UI/Card'
+
 const DUMMY_MEALS = [
   {
     id: 'm1',
@@ -28,15 +30,17 @@ const DUMMY_MEALS = [
 export const AvailableMeals = () => {
   return (
     <section className='h-full w-2/3'>
-      <ul>
-        {DUMMY_MEALS.map(meal => {
-          return (
-            <li key={meal.id}>
-              {meal.name}
-            </li>
-          )
-        })}
-      </ul>
+      <Card bgColor='bg-white'>
+        <ul>
+          {DUMMY_MEALS.map(meal => {
+            return (
+              <li key={meal.id}>
+                {meal.name}
+              </li>
+            )
+          })}
+        </ul>
+      </Card>
     </section>
   )
 }
