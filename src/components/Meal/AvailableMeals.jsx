@@ -1,4 +1,5 @@
 import { Card } from '../UI/Card'
+import { MealItem } from './MealItem'
 
 const DUMMY_MEALS = [
   {
@@ -29,18 +30,18 @@ const DUMMY_MEALS = [
 
 export const AvailableMeals = () => {
   return (
-    <section className='h-full w-2/3'>
-      <Card bgColor='bg-white'>
-        <ul>
-          {DUMMY_MEALS.map(meal => {
-            return (
-              <li key={meal.id}>
-                {meal.name}
-              </li>
-            )
-          })}
-        </ul>
-      </Card>
-    </section>
+    <div className='flex w-full justify-center bg-zinc-700'>
+      <section className='mb-4 h-full w-2/3'>
+        <Card bgColor='bg-white'>
+          <ul>
+            {DUMMY_MEALS.map(meal => {
+              return (
+                <MealItem key={meal.id} {...meal} />
+              )
+            })}
+          </ul>
+        </Card>
+      </section>
+    </div>
   )
 }
