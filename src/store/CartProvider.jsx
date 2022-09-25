@@ -7,28 +7,19 @@ const INITIAL_CART_STATE = {
 }
 
 const cartReducer = (state, action) => {
+  const draftItems = structuredClone(state.items)
   switch (action.type) {
     case 'add': {
-      const filteredItem = state.items.filter(item => item.id === action.item.id)
+      const existingItemIndex = draftItems.findIndex(item => item.id === action.item.id)
       const updatedTotalAmount = Number((state.totalAmount + action.item.price * action.item.amount).toFixed(2))
-      if (filteredItem.length !== 0) {
-        const updatedItems = state.items.map(item => {
-          if (item.id === action.item.id) {
-            return {
-              ...item,
-              amount: item.amount + action.item.amount
-            }
-          }
-          return item
-        })
-        return {
-          items: updatedItems,
-          totalAmount: updatedTotalAmount
-        }
+      if (existingItemIndex !== -1) {
+        const existingItem = draftItems[existingItemIndex]
+        existingItem.amount = existingItem.amount + action.item.amount
+      } else {
+        draftItems.push(action.item)
       }
-      const updatedItems = state.items.concat(action.item)
       return {
-        items: updatedItems,
+        items: draftItems,
         totalAmount: updatedTotalAmount
       }
     }
