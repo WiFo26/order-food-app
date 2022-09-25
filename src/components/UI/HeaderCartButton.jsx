@@ -1,8 +1,8 @@
 import CartIcon from '../Cart/CartIcon'
 
-export const HeaderCartButton = () => {
+export const HeaderCartButton = ({ toggleModal }) => {
   return (
-    <button className='mr-24 flex items-center justify-around gap-1 rounded-full bg-[#4d1601] px-8 py-2 text-xs font-semibold text-white hover:bg-[#92320c]'>
+    <button onClick={toggleModal} className='mr-24 flex items-center justify-around gap-1 rounded-full bg-[#4d1601] px-8 py-2 text-xs font-semibold text-white hover:bg-[#92320c]'>
       <div className='h-4 w-4 text-white'>
         <CartIcon />
       </div>

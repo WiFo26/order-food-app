@@ -1,16 +1,11 @@
-import { Cart } from '../Cart/Cart'
-import { AvailableMeals } from '../Meal/AvailableMeals'
-import { MealSummary } from '../Meal/MealSummary'
 import { Header } from '../UI/Header'
-export const Layout = () => {
+export const Layout = ({ children, toggleModal }) => {
   return (
     <>
-      <Cart />
       <div className='bg-zinc-700'>
-        <Header />
+        <Header toggleModal={toggleModal} />
         <main className='absolute top-20 grid w-full place-items-center gap-6'>
-          <MealSummary />
-          <AvailableMeals />
+          {children}
         </main>
       </div>
     </>

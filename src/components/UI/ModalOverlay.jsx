@@ -1,7 +1,7 @@
 export const ModalOverlay = ({ children }) => {
   return (
-    <div className='fixed inset-x-0 top-32 z-20 h-screen w-full '>
-      <div className='mx-auto w-1/3'>{children}</div>
+    <div className='fixed left-1/2 top-32 z-20 -translate-x-1/2'>
+      <div className='w-[600px]'>{children}</div>
     </div>
   )
 }
