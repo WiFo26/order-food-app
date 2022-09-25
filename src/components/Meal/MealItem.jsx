@@ -3,7 +3,7 @@ import { CartContext } from '../../store/cart-context'
 
 export const MealItem = ({ id, name, description, price }) => {
   const [amount, setAmount] = useState(1)
-  const { addItem, items, totalAmount } = useContext(CartContext)
+  const { addItem } = useContext(CartContext)
 
   const labelIdentifier = `amount-${id}`
 
@@ -18,8 +18,6 @@ export const MealItem = ({ id, name, description, price }) => {
     addItem(item)
     setAmount(1)
   }
-
-  console.log(items, totalAmount)
 
   return (
     <li className='flex items-center justify-between border-b-2 border-b-slate-300 pb-3 pt-2'>

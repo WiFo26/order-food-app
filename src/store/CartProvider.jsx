@@ -10,9 +10,8 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case 'add': {
       const filteredItem = state.items.filter(item => item.id === action.item.id)
-      const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount
+      const updatedTotalAmount = Number((state.totalAmount + action.item.price * action.item.amount).toFixed(2))
       if (filteredItem.length !== 0) {
-        console.log('Enter to the filter logic')
         const updatedItems = state.items.map(item => {
           if (item.id === action.item.id) {
             return {
