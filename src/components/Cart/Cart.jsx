@@ -12,7 +12,7 @@ export const Cart = ({ toggleModal }) => {
       <Card bgColor='bg-white'>
         <ul>
           {items.map(item => {
-            return <CartItem key={item.id} {...item} />
+            return <CartItem key={item.id} item={item} />
           })}
         </ul>
         <div className='my-2 flex items-center justify-between text-xl font-bold'>

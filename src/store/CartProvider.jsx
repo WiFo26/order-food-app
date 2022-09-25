@@ -23,6 +23,20 @@ const cartReducer = (state, action) => {
         totalAmount: updatedTotalAmount
       }
     }
+    case 'delete': {
+      const existingItemIndex = draftItems.findIndex(item => item.id === action.id)
+      const existingItem = draftItems[existingItemIndex]
+      const updatedTotalAmount = Number((state.totalAmount - existingItem.price).toFixed(2))
+      if (existingItem.amount > 1) {
+        existingItem.amount = existingItem.amount - 1
+      } else {
+        draftItems.splice(existingItemIndex, 1)
+      }
+      return {
+        items: draftItems,
+        totalAmount: updatedTotalAmount
+      }
+    }
     default:
       throw new Error()
   }
@@ -34,7 +48,9 @@ export const CartProvider = ({ children }) => {
   const addItemHandler = (item) => {
     dispatch({ type: 'add', item })
   }
-  const deleteItemHandler = (id) => {}
+  const deleteItemHandler = (id) => {
+    dispatch({ type: 'delete', id })
+  }
 
   const defaultValue = {
     items: state.items,
