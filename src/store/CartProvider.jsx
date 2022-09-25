@@ -9,8 +9,25 @@ const INITIAL_CART_STATE = {
 const cartReducer = (state, action) => {
   switch (action.type) {
     case 'add': {
-      const updatedItems = state.items.concat(action.item)
+      const filteredItem = state.items.filter(item => item.id === action.item.id)
       const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount
+      if (filteredItem.length !== 0) {
+        console.log('Enter to the filter logic')
+        const updatedItems = state.items.map(item => {
+          if (item.id === action.item.id) {
+            return {
+              ...item,
+              amount: item.amount + action.item.amount
+            }
+          }
+          return item
+        })
+        return {
+          items: updatedItems,
+          totalAmount: updatedTotalAmount
+        }
+      }
+      const updatedItems = state.items.concat(action.item)
       return {
         items: updatedItems,
         totalAmount: updatedTotalAmount
