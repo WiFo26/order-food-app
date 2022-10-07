@@ -13,10 +13,16 @@ export const useInput = (validate) => {
   const handleTouched = () => {
     setTouched(true)
   }
+
+  const reset = () => {
+    setValue('')
+    setTouched(false)
+  }
   return {
     value,
     handleChange,
     hasError,
-    handleTouched
+    handleTouched,
+    reset
   }
 }

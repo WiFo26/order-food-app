@@ -5,11 +5,11 @@ import { Input } from '../UI/Input'
 const emptyValidation = (value) => value.trim() !== ''
 const postalCodeValidation = (value) => emptyValidation(value) && value.length === 5
 
-export const CheckoutForm = ({ toggleModal }) => {
-  const { value: name, handleChange: changeNameHandler, hasError: nameInputError, handleTouched: handleNameTouched } = useInput(emptyValidation)
-  const { value: street, handleChange: changeStreetHandler, hasError: streetInputError, handleTouched: handleStreetTouched } = useInput(emptyValidation)
-  const { value: postalCode, handleChange: changePostalCodeHandler, hasError: postalCodeInputError, handleTouched: handlePostalCodeTouched } = useInput(postalCodeValidation)
-  const { value: city, handleChange: changeCityHandler, hasError: cityInputError, handleTouched: handleCityTouched } = useInput(emptyValidation)
+export const CheckoutForm = ({ toggleModal, submitHandler }) => {
+  const { value: name, handleChange: changeNameHandler, hasError: nameInputError, handleTouched: handleNameTouched, reset: resetName } = useInput(emptyValidation)
+  const { value: street, handleChange: changeStreetHandler, hasError: streetInputError, handleTouched: handleStreetTouched, reset: resetStreet } = useInput(emptyValidation)
+  const { value: postalCode, handleChange: changePostalCodeHandler, hasError: postalCodeInputError, handleTouched: handlePostalCodeTouched, reset: resetPostalCode } = useInput(postalCodeValidation)
+  const { value: city, handleChange: changeCityHandler, hasError: cityInputError, handleTouched: handleCityTouched, reset: resetCity } = useInput(emptyValidation)
 
   const formIsValid = !nameInputError && !streetInputError && !postalCodeInputError && !cityInputError
   const handleSubmit = (e) => {
@@ -23,7 +23,11 @@ export const CheckoutForm = ({ toggleModal }) => {
       postalCode,
       city
     }
-    console.log(checkoutOrder)
+    submitHandler(checkoutOrder)
+    resetName()
+    resetStreet()
+    resetPostalCode()
+    resetCity()
   }
   return (
     <form action='#' onSubmit={handleSubmit} className='flex flex-col'>

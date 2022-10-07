@@ -9,11 +9,23 @@ import { CartItem } from './CartItem'
 export const Cart = ({ toggleModal }) => {
   const { items, totalAmount } = useContext(CartContext)
   const [isCheckout, setCheckout] = useState(false)
+  const [isSubmiting, setIsSubmiting] = useState(false)
+  const [didSubmit, setDidSubmit] = useState(false)
 
   const handleCheckout = () => {
     setCheckout(true)
   }
 
+  const submitOrderHandler = async (deliveryDetails) => {
+    setIsSubmiting(true)
+    const createdOrder = {
+      ...deliveryDetails,
+      items
+    }
+    await fetch('https://order-food-app-56a2a-default-rtdb.firebaseio.com/delivery.json', { method: 'POST', body: JSON.stringify(createdOrder) })
+    setIsSubmiting(false)
+    setDidSubmit(true)
+  }
   const buttonContent = () => {
     return (
       !isCheckout &&
@@ -23,20 +35,32 @@ export const Cart = ({ toggleModal }) => {
         </div>
     )
   }
+
+  const content = (
+    <>
+      <ul>
+        {items.map(item => {
+          return <CartItem key={item.id} item={item} />
+        })}
+      </ul>
+      <div className='my-2 flex items-center justify-between text-xl font-bold'>
+        <h1>Total Amount</h1>
+        <span>${totalAmount}</span>
+      </div>
+      {buttonContent()}
+      {isCheckout && <CheckoutForm toggleModal={toggleModal} submitHandler={submitOrderHandler} />}
+    </>
+  )
   return (
     <Modal toggleModal={toggleModal}>
       <Card bgColor='bg-white'>
-        <ul>
-          {items.map(item => {
-            return <CartItem key={item.id} item={item} />
-          })}
-        </ul>
-        <div className='my-2 flex items-center justify-between text-xl font-bold'>
-          <h1>Total Amount</h1>
-          <span>${totalAmount}</span>
-        </div>
-        {buttonContent()}
-        {isCheckout && <CheckoutForm toggleModal={toggleModal} />}
+        {!isSubmiting && !didSubmit && content}
+        {isSubmiting && !didSubmit && <p className='text-center'>Sending Order...</p>}
+        {didSubmit &&
+          <div className='flex flex-col items-center'>
+            <p>Order Sent Succesfully</p>
+            <Button onClick={toggleModal} borderColor='border-[#762f12]' textColor='text-[#762f12]'>Close</Button>
+          </div>}
       </Card>
     </Modal>
   )
