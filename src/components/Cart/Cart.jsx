@@ -7,7 +7,7 @@ import { Modal } from '../UI/Modal'
 import { CartItem } from './CartItem'
 
 export const Cart = ({ toggleModal }) => {
-  const { items, totalAmount } = useContext(CartContext)
+  const { items, totalAmount, clearCart } = useContext(CartContext)
   const [isCheckout, setCheckout] = useState(false)
   const [isSubmiting, setIsSubmiting] = useState(false)
   const [didSubmit, setDidSubmit] = useState(false)
@@ -25,6 +25,7 @@ export const Cart = ({ toggleModal }) => {
     await fetch('https://order-food-app-56a2a-default-rtdb.firebaseio.com/delivery.json', { method: 'POST', body: JSON.stringify(createdOrder) })
     setIsSubmiting(false)
     setDidSubmit(true)
+    clearCart()
   }
   const buttonContent = () => {
     return (

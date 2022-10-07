@@ -37,6 +37,9 @@ const cartReducer = (state, action) => {
         totalAmount: updatedTotalAmount
       }
     }
+    case 'clear': {
+      return INITIAL_CART_STATE
+    }
     default:
       throw new Error()
   }
@@ -52,11 +55,15 @@ export const CartProvider = ({ children }) => {
     dispatch({ type: 'delete', id })
   }
 
+  const clearCartHandler = () => {
+    dispatch({ type: 'clear' })
+  }
   const defaultValue = {
     items: state.items,
     totalAmount: state.totalAmount,
     addItem: addItemHandler,
-    deleteItem: deleteItemHandler
+    deleteItem: deleteItemHandler,
+    clearCart: clearCartHandler
   }
   return (
     <CartContext.Provider value={defaultValue}>
