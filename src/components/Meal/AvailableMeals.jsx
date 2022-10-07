@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { VITE_GET_ENDPOINT } from '../../config'
 import { Card } from '../UI/Card'
 import { MealItem } from './MealItem'
 
@@ -6,10 +7,9 @@ export const AvailableMeals = () => {
   const [meals, setMeals] = useState([])
   const [loading, setIsLoading] = useState(false)
   const [error, setError] = useState(false)
-
   useEffect(() => {
     setIsLoading(true)
-    fetch('https://order-food-app-56a2a-default-rtdb.firebaseio.com/meals.json')
+    fetch(VITE_GET_ENDPOINT)
       .then(res => res.json())
       .then(data => {
         const mealsFromApi = []

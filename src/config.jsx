@@ -1,0 +1,6 @@
+const { VITE_GET_ENDPOINT, VITE_POST_ENDPOINT } = import.meta.env
+
+export {
+  VITE_GET_ENDPOINT,
+  VITE_POST_ENDPOINT
+}

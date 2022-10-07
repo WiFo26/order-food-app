@@ -1,4 +1,5 @@
 import { useState, useContext } from 'react'
+import { VITE_POST_ENDPOINT } from '../../config'
 import { CartContext } from '../../store/cart-context'
 import { CheckoutForm } from '../CheckoutForm'
 import { Button } from '../UI/Button'
@@ -22,7 +23,7 @@ export const Cart = ({ toggleModal }) => {
       ...deliveryDetails,
       items
     }
-    await fetch('https://order-food-app-56a2a-default-rtdb.firebaseio.com/delivery.json', { method: 'POST', body: JSON.stringify(createdOrder) })
+    await fetch(VITE_POST_ENDPOINT, { method: 'POST', body: JSON.stringify(createdOrder) })
     setIsSubmiting(false)
     setDidSubmit(true)
     clearCart()
